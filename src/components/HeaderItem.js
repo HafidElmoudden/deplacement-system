@@ -15,14 +15,14 @@ function HeaderItem({ icon, title, isActive, clickHandle }) {
       >
         <FontAwesomeIcon
           icon={icon}
-          color={isActive ? "#7038A4" : "#9A9FA6"}
+          color={isActive ? "#E93D4B" : "#9A9FA6"}
           style={{ marginRight: "13px" }}
           width={20}
         />
         <h4
           style={{
             marginTop: "2px",
-            color: isActive ? "#10144E" : "#9A9FA6",
+            color: isActive ? "#E93D4B" : "#9A9FA6",
             fontWeight: isActive ? "bold" : "normal"
           }}
         >

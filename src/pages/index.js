@@ -4,13 +4,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 import Header from '../components/Header';
 import Home from '../components/Home';
-
+import Head from 'next/head';
 const prisma = new PrismaClient();
 
 function index({grades}) {
   console.log(grades)
   return (
     <div style={{display:'flex', flexDirection:'row', backgroundColor:'#FFFFFF'}}>
+      <Head>
+        <title>Alomrane</title>
+      </Head>
       <Header/>
       <Home/>
     </div>
