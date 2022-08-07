@@ -11,7 +11,7 @@ import {
   faListOl,
   faFileLines,
   faHorseHead,
-  faMoneyCheckDollar   
+  faMoneyCheckDollar,
 } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
 import HeaderItem from "./HeaderItem";

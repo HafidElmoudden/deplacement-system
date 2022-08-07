@@ -9,7 +9,7 @@ function HeaderItem({ icon, title, isActive, clickHandle }) {
           display: "flex",
           flexDirection: "row",
           alignItems: "center",
-          justifyContent: "center",
+          justifyContent: "space-between",
           marginLeft: "1rem",
         }}
       >
@@ -17,11 +17,12 @@ function HeaderItem({ icon, title, isActive, clickHandle }) {
           icon={icon}
           color={isActive ? "#7038A4" : "#9A9FA6"}
           style={{ marginRight: "13px" }}
+          width={20}
         />
         <h4
           style={{
             marginTop: "2px",
-            color: isActive ? "black" : "#9A9FA6",
+            color: isActive ? "#10144E" : "#9A9FA6",
             fontWeight: isActive ? "bold" : "normal"
           }}
         >
