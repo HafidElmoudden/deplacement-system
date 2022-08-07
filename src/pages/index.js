@@ -1,9 +1,27 @@
-import React from 'react'
+import React from 'react';
+import { PrismaClient } from '@prisma/client'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+import Header from '../components/Header';
 
-function index() {
+const prisma = new PrismaClient();
+
+function index({grades}) {
+  console.log(grades)
   return (
-    <div>index</div>
-  )
+    <div style={{display:'flex', flexDirection:'row', backgroundColor:'#FFFFFF'}}>
+      <Header/>
+    </div>
+  );
 }
 
-export default index
+export async function getServerSideProps(){
+  const grades = await prisma.grades.findMany();
+  return {
+    props:{
+      grades: grades
+    }
+  }
+}
+
+export default index;
