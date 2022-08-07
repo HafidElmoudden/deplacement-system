@@ -1,5 +1,4 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHouseChimney,
   faBuildingColumns,
@@ -7,7 +6,6 @@ import {
   faLocationDot,
   faPlane,
   faCar,
-  faBallot,
   faListOl,
   faFileLines,
   faHorseHead,
