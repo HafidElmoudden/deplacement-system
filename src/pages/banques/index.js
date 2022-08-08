@@ -1,18 +1,23 @@
 import React from "react";
 import Control from "../../components/Control";
+import {PrismaClient} from "@prisma/client"
 
-function index() {
-  const Data = [
-    { banq_code: 1, banq_nom: "CIH" },
-    { banq_code: 2, banq_nom: "Banque Populaire" },
-    { banq_code: 3, banq_nom: "BMCI" },
-    { banq_code: 4, banq_nom: "ALBARID BANK" }
-  ];
+const prisma = new PrismaClient();
+
+export default function index({data}) {
   return (
     <div style={{ width: "80%" }}>
-      <Control title={"Banques"} data={Data} />
+      <Control title={"Banques"} data={data} />
     </div>
   );
 }
 
-export default index;
+
+export const getServerSideProps = async () => {
+  const data = await prisma.banques.findMany();
+  console.log(data);
+  return {
+    props: { data },
+  };
+};
+
