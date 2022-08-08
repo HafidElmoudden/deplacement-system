@@ -45,7 +45,7 @@ export default function StickyHeadTable({ data }) {
       sx={{
         width: "100%",
         overflow: "hidden",
-        marginTop: "15px"
+        marginTop: "25px"
       }}
     >
       <TableContainer sx={{ maxHeight: 440, maxWidth: "100%" }}>
