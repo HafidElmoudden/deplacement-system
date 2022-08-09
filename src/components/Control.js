@@ -1,20 +1,14 @@
-import { Box, Tab, Tabs, TabList, TableContext } from "@mui/material";
+import { Box, Tab, Tabs, TabList, TableContext, createTheme } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Apercu from "./Apercu";
 import MUIDataTable from "mui-datatables";
 import Ajouter from "./Ajouter";
 import Modifier from "./Modifier";
 import Consulter from "./Consulter";
-
+// import Tabs from "./Tabs"
 function Control({ title, data }) {
-  const columns = ["Name", "Company", "City", "State"];
 
-  const datas = [
-    ["Joe James", "Test Corp", "Yonkers", "NY"],
-    ["John Walsh", "Test Corp", "Hartford", "CT"],
-    ["Bob Herm", "Test Corp", "Tampa", "FL"],
-    ["James Houston", "Test Corp", "Dallas", "TX"]
-  ];
+  
 
   const options = {
     filterType: "checkbox",
@@ -33,6 +27,9 @@ function Control({ title, data }) {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  const valueChanger = (newValue) => {
+    setValue(newValue);
+  }
   return (
     <div className="control-container">
       <div>
@@ -45,27 +42,30 @@ function Control({ title, data }) {
             onChange={handleChange}
             aria-label="basic tabs example"
             indicatorColor="secondary"
-            textColor="secondary"
+            // textColor="secondary"
+            // inkBarStyle={{background: '#7032A4'}}
+            TabIndicatorProps={{ style: { background: "#7032A4" } }}
           >
             <Tab
               label="Apercu"
-              style={{ fontWeight: value == 0 ? "bold" : "" }}
+              style={{ fontWeight: value == 0 ? "bold" : "", color: value == 0 ? "#242860" : "#8F969F"}}
             />
             <Tab
               label="Ajouter"
-              style={{ fontWeight: value == 1 ? "bold" : "" }}
+              style={{ fontWeight: value == 1 ? "bold" : "", color: value == 1 ? "#242860" : "#8F969F" }}
             />
             <Tab
               label="Modifier"
-              style={{ fontWeight: value == 2 ? "bold" : "" }}
+              style={{ fontWeight: value == 2 ? "bold" : "", color: value == 2 ? "#242860" : "#8F969F" }}
             />
             <Tab
               label="Consulter"
-              style={{ fontWeight: value == 3 ? "bold" : "" }}
+              style={{ fontWeight: value == 3 ? "bold" : "", color: value == 3 ? "#242860" : "#8F969F" }}
             />
           </Tabs>
         </Box>
       </Box>
+      {/* <Tabs valueChanger={valueChanger}/> */}
       {value == 0 && <Apercu data={data} />}
       {value == 1 && <Ajouter />}
       {value == 2 && <Modifier />}
