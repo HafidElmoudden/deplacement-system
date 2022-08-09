@@ -2,6 +2,9 @@ import { Box, Tab, Tabs, TabList, TableContext } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Apercu from "./Apercu";
 import MUIDataTable from "mui-datatables";
+import Ajouter from "./Ajouter";
+import Modifier from "./Modifier";
+import Consulter from "./Consulter";
 
 function Control({ title, data }) {
   const columns = ["Name", "Company", "City", "State"];
@@ -63,7 +66,11 @@ function Control({ title, data }) {
           </Tabs>
         </Box>
       </Box>
-      <Apercu data={data} />
+      {value == 0 && <Apercu data={data} />}
+      {value == 1 && <Ajouter />}
+      {value == 2 && <Modifier />}
+      {value == 3 && <Consulter />}
+
       {/* <MUIDataTable data={datas} columns={columns} options={options} /> */}
     </div>
   );

@@ -69,3 +69,36 @@
   margin-left: 40px;
   margin-right: 40px;
 }
+
+.control-input {
+  background-color: #f7f7f7;
+  border: none;
+  /* padding: 10px 50px; */
+  height: 37px;
+  width: 270px;
+  outline: none;
+  border-radius: 10px;
+  /* margin-left: 30px; */
+  text-indent: 10px;
+  font-weight: bold;
+}
+
+.control-button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  padding: 10px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  width: 110px;
+  height: 41px;
+  user-select: none;
+  margin-top: 20px;
+  float: right;
+}
+
+.control-button:not(:first-child) {
+  margin-right: 10px;
+}
