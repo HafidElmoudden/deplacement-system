@@ -1,4 +1,11 @@
-import { Box, Tab, Tabs, TabList, TableContext, createTheme } from "@mui/material";
+import {
+  Box,
+  Tab,
+  Tabs,
+  TabList,
+  TableContext,
+  createTheme,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Apercu from "./Apercu";
 import MUIDataTable from "mui-datatables";
@@ -7,9 +14,6 @@ import Modifier from "./Modifier";
 import Consulter from "./Consulter";
 // import Tabs from "./Tabs"
 function Control({ title, data }) {
-
-  
-
   const options = {
     filterType: "checkbox",
     filter: false,
@@ -19,7 +23,7 @@ function Control({ title, data }) {
     selectableRowsHideCheckboxes: true,
     download: false,
     search: false,
-    viewColumns: false
+    viewColumns: false,
   };
 
   const [value, setValue] = React.useState(0);
@@ -29,7 +33,7 @@ function Control({ title, data }) {
   };
   const valueChanger = (newValue) => {
     setValue(newValue);
-  }
+  };
   return (
     <div className="control-container">
       <div>
@@ -48,28 +52,40 @@ function Control({ title, data }) {
           >
             <Tab
               label="Apercu"
-              style={{ fontWeight: value == 0 ? "bold" : "", color: value == 0 ? "#242860" : "#8F969F"}}
+              style={{
+                fontWeight: value == 0 ? "bold" : "",
+                color: value == 0 ? "#242860" : "#8F969F",
+              }}
             />
             <Tab
               label="Ajouter"
-              style={{ fontWeight: value == 1 ? "bold" : "", color: value == 1 ? "#242860" : "#8F969F" }}
+              style={{
+                fontWeight: value == 1 ? "bold" : "",
+                color: value == 1 ? "#242860" : "#8F969F",
+              }}
             />
             <Tab
               label="Modifier"
-              style={{ fontWeight: value == 2 ? "bold" : "", color: value == 2 ? "#242860" : "#8F969F" }}
+              style={{
+                fontWeight: value == 2 ? "bold" : "",
+                color: value == 2 ? "#242860" : "#8F969F",
+              }}
             />
             <Tab
               label="Consulter"
-              style={{ fontWeight: value == 3 ? "bold" : "", color: value == 3 ? "#242860" : "#8F969F" }}
+              style={{
+                fontWeight: value == 3 ? "bold" : "",
+                color: value == 3 ? "#242860" : "#8F969F",
+              }}
             />
           </Tabs>
         </Box>
       </Box>
       {/* <Tabs valueChanger={valueChanger}/> */}
       {value == 0 && <Apercu data={data} />}
-      {value == 1 && <Ajouter />}
-      {value == 2 && <Modifier />}
-      {value == 3 && <Consulter />}
+      {value == 1 && <Ajouter data={data} />}
+      {value == 2 && <Modifier data={data} />}
+      {value == 3 && <Consulter data={data} />}
 
       {/* <MUIDataTable data={datas} columns={columns} options={options} /> */}
     </div>
