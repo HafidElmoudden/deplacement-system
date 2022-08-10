@@ -1,4 +1,4 @@
-export default function Input({ label, readOnly, consulter }) {
+export default function Input({ label, readOnly, consulter, value }) {
   console.log(readOnly);
   return (
     <div>
@@ -9,12 +9,14 @@ export default function Input({ label, readOnly, consulter }) {
             consulter ? "control-input consulter-search-input" : "control-input"
           }
           readOnly
+          value={value ? value : undefined}
         />
       ) : (
         <input
           className={
             consulter ? "control-input consulter-search-input" : "control-input"
           }
+          value={value ? value : undefined}
         />
       )}
     </div>
