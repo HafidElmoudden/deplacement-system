@@ -83,6 +83,10 @@
   font-weight: bold;
 }
 
+.consulter-search-input {
+  border-radius: 10px 0 0 10px !important;
+}
+
 .control-button {
   cursor: pointer;
   border: none;
@@ -101,4 +105,17 @@
 
 .control-button:not(:first-child) {
   margin-right: 10px;
+}
+
+.control-select {
+  width: 150px;
+  background-color: rgb(233, 61, 75);
+  color: rgb(255, 255, 255);
+  height: 37px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  font-weight: bold;
+  outline: none;
+  border: none;
+  margin-top: 20px;
 }
