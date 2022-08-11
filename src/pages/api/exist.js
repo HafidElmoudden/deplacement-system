@@ -6,14 +6,9 @@ const prisma = new PrismaClient();
 export default async function modiferHandler(req, res) {
   const data = JSON.parse(req.body);
   const item = {};
-  //   console.log("data.route : ", data.route);
-  //   console.log("object: ", Object.values(data)[0])
-  Object.values(data)[0].forEach((e, i) => {
-    if (i != 0) {
-      console.log("e : ", e);
-      item[e.toString()] = Number(data.inputs[i - 1]) ? Number(data.inputs[i - 1]) : data.inputs[i - 1];
-    }
-  });
+  console.log("data.route : ", data.route);
+  console.log("object: ", Object.values(data));
+  // item[Object.values(data)[0][0]] =
   let whereCond;
   let count;
   switch (data.route) {
@@ -22,18 +17,14 @@ export default async function modiferHandler(req, res) {
       whereCond[data.data[0].toString()] = Number(data.id);
       try {
         count = await prisma.banques.count({
-          where: item
+          where: whereCond
         });
-        if (count === 0) {
-          await prisma.banques.update({
-            where: whereCond,
-            data: item
-          });
+        if (count !== 0) {
+          res.status(200).json({ message: "L'élement trouvé" });
         } else {
-          res.status(310).json({ message: "L'élément exists déja!" });
+          res.status(310).json({ message: "L'élément introuvable!" });
         }
       } catch (e) {
-        console.log(e)
         res.status(310).json({ message: "L'élément introuvable!" });
       }
 
@@ -43,154 +34,129 @@ export default async function modiferHandler(req, res) {
       whereCond[data.data[0].toString()] = Number(data.id);
       try {
         count = await prisma.destinations.count({
-          where: item
+          where: whereCond
         });
-        if (count === 0) {
-          await prisma.destinations.update({
-            where: whereCond,
-            data: item
-          });
+        if (count !== 0) {
+          res.status(200).json({ message: "L'élement trouvé" });
         } else {
-          res.status(310).json({ message: "L'élément exists déja!" });
+          res.status(310).json({ message: "L'élément introuvable!" });
         }
       } catch (e) {
         res.status(310).json({ message: "L'élément introuvable!" });
-      }
-      break;
+      }  
+    break;
     case "/employes":
       whereCond = {};
       whereCond[data.data[0].toString()] = Number(data.id);
       try {
         count = await prisma.employes.count({
-          where: item
+          where: whereCond
         });
-        if (count === 0) {
-          await prisma.employes.update({
-            where: whereCond,
-            data: item
-          });
+        if (count !== 0) {
+          res.status(200).json({ message: "L'élement trouvé" });
         } else {
-          res.status(310).json({ message: "L'élément exists déja!" });
+          res.status(310).json({ message: "L'élément introuvable!" });
         }
       } catch (e) {
         res.status(310).json({ message: "L'élément introuvable!" });
-      }
-      break;
+      }  
+    break;
     case "/frais-standards":
       whereCond = {};
       whereCond[data.data[0].toString()] = Number(data.id);
       try {
         count = await prisma.frais_standards.count({
-          where: item
+          where: whereCond
         });
-        if (count === 0) {
-          await prisma.frais_standards.update({
-            where: whereCond,
-            data: item
-          });
+        if (count !== 0) {
+          res.status(200).json({ message: "L'élement trouvé" });
         } else {
-          res.status(310).json({ message: "L'élément exists déja!" });
+          res.status(310).json({ message: "L'élément introuvable!" });
         }
       } catch (e) {
         res.status(310).json({ message: "L'élément introuvable!" });
-      }
-      break;
+      }  
+    break;
     case "/grades":
       whereCond = {};
       whereCond[data.data[0].toString()] = Number(data.id);
       try {
         count = await prisma.grades.count({
-          where: item
+          where: whereCond
         });
-        if (count === 0) {
-          await prisma.grades.update({
-            where: whereCond,
-            data: item
-          });
+        if (count !== 0) {
+          res.status(200).json({ message: "L'élement trouvé" });
         } else {
-          res.status(310).json({ message: "L'élément exists déja!" });
+          res.status(310).json({ message: "L'élément introuvable!" });
         }
       } catch (e) {
         res.status(310).json({ message: "L'élément introuvable!" });
-      }
-      break;
+      }  
+    break;
     case "/moyens-de-transport":
       whereCond = {};
       whereCond[data.data[0].toString()] = Number(data.id);
       try {
         count = await prisma.moyens_de_transport.count({
-          where: item
+          where: whereCond
         });
-        if (count === 0) {
-          await prisma.moyens_de_transport.update({
-            where: whereCond,
-            data: item
-          });
+        if (count !== 0) {
+          res.status(200).json({ message: "L'élement trouvé" });
         } else {
-          res.status(310).json({ message: "L'élément exists déja!" });
+          res.status(310).json({ message: "L'élément introuvable!" });
         }
       } catch (e) {
         res.status(310).json({ message: "L'élément introuvable!" });
-      }
-      break;
+      }  
+    break;
     case "/ordre-de-mission":
       whereCond = {};
       whereCond[data.data[0].toString()] = Number(data.id);
       try {
         count = await prisma.ordre_de_mission.count({
-          where: item
+          where: whereCond
         });
-        if (count === 0) {
-          await prisma.ordre_de_mission.update({
-            where: whereCond,
-            data: item
-          });
+        if (count !== 0) {
+          res.status(200).json({ message: "L'élement trouvé" });
         } else {
-          res.status(310).json({ message: "L'élément exists déja!" });
+          res.status(310).json({ message: "L'élément introuvable!" });
         }
       } catch (e) {
         res.status(310).json({ message: "L'élément introuvable!" });
-      }
-      break;
+      }  
+    break;
     case "/vehicule-personnel":
       whereCond = {};
       whereCond[data.data[0].toString()] = Number(data.id);
       try {
         count = await prisma.vehicule_personnel.count({
-          where: item
+          where: whereCond
         });
-        if (count === 0) {
-          await prisma.vehicule_personnel.update({
-            where: whereCond,
-            data: item
-          });
+        if (count !== 0) {
+          res.status(200).json({ message: "L'élement trouvé" });
         } else {
-          res.status(310).json({ message: "L'élément exists déja!" });
+          res.status(310).json({ message: "L'élément introuvable!" });
         }
       } catch (e) {
         res.status(310).json({ message: "L'élément introuvable!" });
-      }
-      break;
+      }  
+    break;
     case "/puissances-fiscales":
       whereCond = {};
       whereCond[data.data[0].toString()] = Number(data.id);
       try {
         count = await prisma.puissances_fiscales.count({
-          where: item
+          where: whereCond
         });
-        if (count === 0) {
-          await prisma.puissances_fiscales.update({
-            where: whereCond,
-            data: item
-          });
+        if (count !== 0) {
+          res.status(200).json({ message: "L'élement trouvé" });
         } else {
-          res.status(310).json({ message: "L'élément exists déja!" });
+          res.status(310).json({ message: "L'élément introuvable!" });
         }
       } catch (e) {
-        console.log(e)
         res.status(310).json({ message: "L'élément introuvable!" });
-      }
-      break;
+      }  
+    break;
     default:
       throw new Error("Router pathname not in the switch case!");
       break;

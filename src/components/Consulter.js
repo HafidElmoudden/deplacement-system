@@ -5,6 +5,7 @@ import {
   faRotateLeft,
   faCheck,
   faRotateRight,
+  faX
 } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 import { Modal } from "@mui/material";
@@ -26,27 +27,50 @@ export default function Consulter({ data }) {
   };
 
   async function consulterItem(route, search, searchValue) {
-    console.log("executed!!!!!");
-    if (typeof window !== "undefined")
-      setSearchValue(document.querySelector(".control-input").value);
-    const myData = { route: route, search: search, searchValue: searchValue };
-    const response = await fetch("/api/consulter", {
-      method: "POST",
-      body: JSON.stringify(myData),
-    });
+    if (typeof window !== "undefined") {
+      if (document.querySelector(".control-input").value === "") {
+        setErrorModalMessage("Le champ de recherche est vide !");
+        setError(true);
+        setShowModal(true);
+        return;
+      }
+
+      const myData = {
+        route: route,
+        search: search,
+        searchValue: document.querySelector(".control-input").value
+      };
+      const response = await fetch("/api/consulter", {
+        method: "POST",
+        body: JSON.stringify(myData)
+      });
+      const message = await response.json();
+      if (response.status == 310) {
+        setErrorModalMessage(message.message);
+        setError(true);
+        setShowModal(true);
+        return;
+      }
+
+      if(message == null){
+        setErrorModalMessage("L'élément introuvable!");
+        setError(true);
+        setShowModal(true);
+        return;  
+      }
+      setFetchedData(message);
+    }
 
     // if (!response.ok) {
     //   throw new Error(response.statusText);
     // }
-    const message = await response.json();
-    setShowModal(true);
-    if (response.status == 310) {
-      setErrorModalMessage(message.message);
-      setError(true);
-      return;
-    }
+  }
 
-    setFetchedData(message);
+  // CHECK: CAN CLEAR ALL INPUTS INCLUDED OTHER TABS
+  function clearAllInputs() {
+    if (typeof window !== "undefined") {
+      document.querySelectorAll(".control-input").forEach((e) => {});
+    }
   }
 
   return (
@@ -57,7 +81,7 @@ export default function Consulter({ data }) {
             style={{
               display: "flex",
               justifyContent: "center",
-              alignItems: "center",
+              alignItems: "center"
             }}
           >
             <Input
@@ -79,6 +103,7 @@ export default function Consulter({ data }) {
                 fontWeight: "bold",
                 outline: "none",
                 border: "none",
+                textIndent:"10px"
               }}
             >
               {Object.keys(data[0]).map((e) => {
@@ -96,11 +121,19 @@ export default function Consulter({ data }) {
             icon={faMagnifyingGlass}
             clickHandler={async () => {
               await consulterItem(router.pathname, selectValue, searchValue);
-              console.log("button clickkeeed!!!! outside! : ", inputsInfo);
-
             }}
           />
-          <Button title="Effacer" type="secondary" icon={faRotateRight} />
+          <Button
+            title="Effacer"
+            type="secondary"
+            icon={faRotateRight}
+            clickHandler={() => {
+              console.log("man pls work")
+              // if(typeof windows != "undefined"){
+                document.querySelector('.control-input').value = "";
+              // }
+            }}
+          />
         </div>
 
         {fetchedData && (
@@ -113,13 +146,17 @@ export default function Consulter({ data }) {
                 width: "100%",
                 justifyContent: "space-between",
                 gap: "20px",
-                flex: "2 0 21%",
+                flex: "2 0 21%"
               }}
             >
-              {Object.keys(fetchedData).map((e,i) => {
-                return(
-                  <Input label={e} value={Object.values(fetchedData)[i]} readOnly={true}/>
-                )
+              {Object.keys(fetchedData).map((e, i) => {
+                return (
+                  <Input
+                    label={e}
+                    value={Object.values(fetchedData)[i]}
+                    readOnly={true}
+                  />
+                );
               })}
             </div>
             {/* <div style={{ marginRight: "10px" }}>
@@ -132,18 +169,19 @@ export default function Consulter({ data }) {
         style={{
           display: "flex",
           justifyContent: "center",
-          alignItem: "center",
+          alignItem: "center"
         }}
       >
         <Modal
           open={showModal}
           onClose={() => {
             setShowModal(false);
+            setError(false);
           }}
           style={{
             display: "flex",
             justifyContent: "center",
-            alignItems: "center",
+            alignItems: "center"
           }}
         >
           <div
@@ -154,7 +192,7 @@ export default function Consulter({ data }) {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              borderRadius: "10px",
+              borderRadius: "10px"
             }}
           >
             {error ? (
@@ -163,12 +201,12 @@ export default function Consulter({ data }) {
                   icon={faX}
                   color="red"
                   style={{
-                    fontSize: "28px",
+                    fontSize: "20px",
                     fontWeight: "bold",
-                    marginRight: "15px",
+                    marginRight: "15px"
                   }}
                 />
-                <h1>{errorModalMessage}</h1>
+                <h3>{errorModalMessage}</h3>
               </>
             ) : (
               <>
@@ -178,7 +216,7 @@ export default function Consulter({ data }) {
                   style={{
                     fontSize: "28px",
                     fontWeight: "bold",
-                    marginRight: "15px",
+                    marginRight: "15px"
                   }}
                 />
                 <h1>Opération réussie!</h1>

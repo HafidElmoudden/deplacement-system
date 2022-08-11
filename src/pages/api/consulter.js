@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 
 export default async function consulterHandler(req, res) {
   const data = JSON.parse(req.body);
-    console.log('data',data);
+  console.log("data", data);
   let whereCond;
   let dataFound;
   switch (data.route) {
@@ -17,10 +17,10 @@ export default async function consulterHandler(req, res) {
         : data.searchValue;
 
       try {
+        console.log("we got: ", whereCond);
         dataFound = await prisma.banques.findFirst({
-          where: whereCond,
+          where: whereCond
         });
-        console.log(dataFound);
         res.status(200).json(dataFound);
       } catch (e) {
         res.status(310).json({ message: "L'élément introuvable!" });
@@ -29,100 +29,139 @@ export default async function consulterHandler(req, res) {
       break;
     case "/destinations":
       whereCond = {};
-      whereCond[data.data[0].toString()] = Number(data.id);
+
+      whereCond[data.search] = Number(data.searchValue)
+        ? Number(data.searchValue)
+        : data.searchValue;
+
       try {
-        await prisma.destinations.update({
-          where: whereCond,
-          data: item,
+        dataFound = await prisma.destinations.findFirst({
+          where: whereCond
         });
+        res.status(200).json(dataFound);
       } catch (e) {
         res.status(310).json({ message: "L'élément introuvable!" });
       }
+
       break;
     case "/employes":
       whereCond = {};
-      whereCond[data.data[0].toString()] = Number(data.id);
+
+      whereCond[data.search] = Number(data.searchValue)
+        ? Number(data.searchValue)
+        : data.searchValue;
+
       try {
-        await prisma.employes.update({
-          where: whereCond,
-          data: item,
+        dataFound = await prisma.employes.findFirst({
+          where: whereCond
         });
+        res.status(200).json(dataFound);
       } catch (e) {
         res.status(310).json({ message: "L'élément introuvable!" });
       }
+
       break;
     case "/frais-standards":
       whereCond = {};
-      whereCond[data.data[0].toString()] = Number(data.id);
+
+      whereCond[data.search] = Number(data.searchValue)
+        ? Number(data.searchValue)
+        : data.searchValue;
+
       try {
-        await prisma.frais_standards.update({
-          where: whereCond,
-          data: item,
+        dataFound = await prisma.frais_standards.findFirst({
+          where: whereCond
         });
+        res.status(200).json(dataFound);
       } catch (e) {
         res.status(310).json({ message: "L'élément introuvable!" });
       }
+
       break;
     case "/grades":
       whereCond = {};
-      whereCond[data.data[0].toString()] = Number(data.id);
+
+      whereCond[data.search] = Number(data.searchValue)
+        ? Number(data.searchValue)
+        : data.searchValue;
+
       try {
-        await prisma.grades.update({
-          where: whereCond,
-          data: item,
+        dataFound = await prisma.grades.findFirst({
+          where: whereCond
         });
+        res.status(200).json(dataFound);
       } catch (e) {
         res.status(310).json({ message: "L'élément introuvable!" });
       }
+
       break;
     case "/moyens-de-transport":
       whereCond = {};
-      whereCond[data.data[0].toString()] = Number(data.id);
+
+      whereCond[data.search] = Number(data.searchValue)
+        ? Number(data.searchValue)
+        : data.searchValue;
+
       try {
-        await prisma.moyens_de_transport.update({
-          where: whereCond,
-          data: item,
+        dataFound = await prisma.moyens_de_transport.findFirst({
+          where: whereCond
         });
+        res.status(200).json(dataFound);
       } catch (e) {
         res.status(310).json({ message: "L'élément introuvable!" });
       }
+
       break;
     case "/ordre-de-mission":
       whereCond = {};
-      whereCond[data.data[0].toString()] = Number(data.id);
+
+      whereCond[data.search] = Number(data.searchValue)
+        ? Number(data.searchValue)
+        : data.searchValue;
+
       try {
-        await prisma.ordre_de_mission.update({
-          where: whereCond,
-          data: item,
+        dataFound = await prisma.ordre_de_mission.findFirst({
+          where: whereCond
         });
+        res.status(200).json(dataFound);
       } catch (e) {
         res.status(310).json({ message: "L'élément introuvable!" });
       }
+
       break;
     case "/vehicule-personnel":
       whereCond = {};
-      whereCond[data.data[0].toString()] = Number(data.id);
+
+      whereCond[data.search] = Number(data.searchValue)
+        ? Number(data.searchValue)
+        : data.searchValue;
+
       try {
-        await prisma.vehicule_personnel.update({
-          where: whereCond,
-          data: item,
+        dataFound = await prisma.vehicule_personnel.findFirst({
+          where: whereCond
         });
+        res.status(200).json(dataFound);
       } catch (e) {
         res.status(310).json({ message: "L'élément introuvable!" });
       }
+
       break;
     case "/puissances-fiscales":
       whereCond = {};
-      whereCond[data.data[0].toString()] = Number(data.id);
+
+      whereCond[data.search] = Number(data.searchValue)
+        ? Number(data.searchValue)
+        : data.searchValue;
+
       try {
-        await prisma.puissances_fiscales.update({
-          where: whereCond,
-          data: item,
+        dataFound = await prisma.puissances_fiscales.findFirst({
+          where: whereCond
         });
+        res.status(200).json(dataFound);
       } catch (e) {
         res.status(310).json({ message: "L'élément introuvable!" });
-      }
-      break;
+      }  
+    break;
     default:
       throw new Error("Router pathname not in the switch case!");
       break;

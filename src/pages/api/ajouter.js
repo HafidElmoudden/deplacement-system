@@ -7,59 +7,166 @@ export default async function handler(req, res) {
   const data = JSON.parse(req.body);
   const item = {};
   console.log("data.route : ", data.route);
-  console.log("object: ", Object.values(data)[0])
+  console.log("object: ", Object.values(data)[0]);
   Object.values(data)[0].forEach((e, i) => {
     if (i != 0) {
       console.log("e : ", e);
-      item[e.toString()] = data.inputs[i - 1];
+      item[e.toString()] = Number(data.inputs[i - 1]) ? Number(data.inputs[i - 1]): data.inputs[i - 1];
     }
   });
-
+  let count;
   switch (data.route) {
     case "/banques":
-      await prisma.banques.create({
-        data: item,
-      });
+      try {
+        count = await prisma.banques.count({
+          where: item
+        });
+
+        if (count === 0) {
+          await prisma.banques.create({
+            data: item
+          });
+        } else {
+          res.status(310).json({ message: "L'élément exists déja!" });
+        }
+      } catch (e) {
+        console.log(e);
+        res.status(310).json({ message: "Operation ajouter echoué" });
+      }
       break;
     case "/destinations":
-      await prisma.destinations.create({
-        data: item,
-      });
+      try {
+        count = await prisma.destinations.count({
+          where: item
+        });
+
+        if (count === 0) {
+          await prisma.destinations.create({
+            data: item
+          });
+        } else {
+          res.status(310).json({ message: "L'élément exists déja!" });
+        }
+      } catch (e) {
+        res.status(310).json({ message: "Operation ajouter echoué" });
+      }
       break;
     case "/employes":
-      await prisma.employes.create({
-        data: item,
+      count = await prisma.employes.count({
+        where: item
       });
+
+      if (count === 0) {
+        await prisma.employes.create({
+          data: item
+        });
+      } else {
+        res.status(310).json({ message: "L'élément exists déja!" });
+      }
       break;
     case "/frais-standards":
-      await prisma.frais_standards.create({
-        data: item,
-      });
+      try {
+        count = await prisma.frais_standards.count({
+          where: item
+        });
+
+        if (count === 0) {
+          await prisma.frais_standards.create({
+            data: item
+          });
+        } else {
+          res.status(310).json({ message: "L'élément exists déja!" });
+        }
+      } catch (e) {
+        res.status(310).json({ message: "Operation ajouter echoué" });
+      }
       break;
     case "/grades":
-      await prisma.grades.create({
-        data: item,
-      });
+      try {
+        count = await prisma.grades.count({
+          where: item
+        });
+
+        if (count === 0) {
+          await prisma.grades.create({
+            data: item
+          });
+        } else {
+          res.status(310).json({ message: "L'élément exists déja!" });
+        }
+      } catch (e) {
+        res.status(310).json({ message: "Operation ajouter echoué" });
+      }
       break;
     case "/moyens-de-transport":
-      await prisma.moyens_de_transport.create({
-        data: item,
-      });
+      try {
+        count = await prisma.moyens_de_transport.count({
+          where: item
+        });
+
+        if (count === 0) {
+          await prisma.moyens_de_transport.create({
+            data: item
+          });
+        } else {
+          res.status(310).json({ message: "L'élément exists déja!" });
+        }
+      } catch (e) {
+        res.status(310).json({ message: "Operation ajouter echoué" });
+      }
       break;
     case "/ordre-de-mission":
-      await prisma.ordre_de_mission.create({
-        data: item,
-      });
+      try {
+        count = await prisma.ordre_de_mission.count({
+          where: item
+        });
+
+        if (count === 0) {
+          await prisma.ordre_de_mission.create({
+            data: item
+          });
+        } else {
+          res.status(310).json({ message: "L'élément exists déja!" });
+        }
+      } catch (e) {
+        console.log(e);
+        res.status(310).json({ message: "Operation ajouter echoué" });
+      }
       break;
     case "/vehicule-personnel":
-      await prisma.vehicule_personnel.create({
-        data: item,
-      });
+      try {
+        count = await prisma.vehicule_personnel.count({
+          where: item
+        });
+
+        if (count === 0) {
+          await prisma.vehicule_personnel.create({
+            data: item
+          });
+        } else {
+          res.status(310).json({ message: "L'élément exists déja!" });
+        }
+      } catch (e) {
+        console.log(e);
+        res.status(310).json({ message: "Operation ajouter echoué" });
+      }
       break;
     case "/puissances-fiscales":
-      await prisma.puissances_fiscales.create({
-        data: item,
-      });
+      try {
+        count = await prisma.puissances_fiscales.count({
+          where: item
+        });
+
+        if (count === 0) {
+          await prisma.puissances_fiscales.create({
+            data: item
+          });
+        } else {
+          res.status(310).json({ message: "L'élément exists déja!" });
+        }
+      } catch (e) {
+        res.status(310).json({ message: "Operation ajouter echoué" });
+      }
       break;
     default:
       throw new Error("Router pathname not in the switch case!");

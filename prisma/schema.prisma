@@ -78,10 +78,10 @@ model ordre_de_mission {
   employes            employes            @relation(fields: [matricule], references: [matricule])
   des_code            Int                 @unique
   destinations        destinations        @relation(fields: [des_code], references: [des_code])
-  date_depart         DateTime
-  heure_depart        DateTime            @db.Time()
-  date_retour         DateTime
-  heure_retour        DateTime            @db.Time()
+  date_depart         String              @db.VarChar(10)
+  heure_depart        String              @db.VarChar(8)
+  date_retour         String              @db.VarChar(10)
+  heure_retour        String              @db.VarChar(8)
   mt_code             Int                 @unique
   moyens_de_transport moyens_de_transport @relation(fields: [mt_code], references: [mt_code])
   motif               String              @db.VarChar(50)
