@@ -168,6 +168,7 @@ export default async function modiferHandler(req, res) {
           res.status(310).json({ message: "L'élément exists déja!" });
         }
       } catch (e) {
+        console.log(e)
         res.status(310).json({ message: "L'élément introuvable!" });
       }
       break;
