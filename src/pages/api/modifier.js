@@ -9,10 +9,11 @@ export default async function modiferHandler(req, res) {
   //   console.log("data.route : ", data.route);
   //   console.log("object: ", Object.values(data)[0])
   Object.values(data)[0].forEach((e, i) => {
-    if (i != 0) {
+    // if (i != 0) {
       console.log("e : ", e);
-      item[e.toString()] = Number(data.inputs[i - 1]) ? Number(data.inputs[i - 1]) : data.inputs[i - 1];
-    }
+      // item[e.toString()] = Number(data.inputs[i - 1]) ? Number(data.inputs[i - 1]) : data.inputs[i - 1];
+      item[e.toString()] = Number(data.inputs[i]) ? Number(data.inputs[i]) : data.inputs[i];
+    // }
   });
   let whereCond;
   let count;
@@ -20,7 +21,7 @@ export default async function modiferHandler(req, res) {
     case "/banques":
       whereCond = {};
       whereCond[data.data[0].toString()] = Number(data.id);
-      console.log("modifier = ", data.data, data.data[0]);
+      console.log("modifier = ", item);
       try {
         count = await prisma.banques.count({
           where: item
