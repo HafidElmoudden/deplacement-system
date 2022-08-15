@@ -19,6 +19,7 @@ export default function Modifier({ data }) {
   const [showModal, setShowModal] = useState(false);
   const [errorModalMessage, setErrorModalMessage] = useState(false);
   const [error, setError] = useState(false);
+  const [modifyData, setModifyData] = useState({});
   const router = useRouter();
   async function modifierItem(data, inputs, route, id) {
     const myData = { data: data, inputs: inputs, route: route, id: id };
@@ -56,11 +57,15 @@ export default function Modifier({ data }) {
     }
 
     if (response.status == 200) {
+      const res = await response.json();
+      console.log("exist check = ",res);
+      setModifyData(res.data);
       setShowModifyPanel(true);
     }
   }
 
   function getInputsValue() {
+    setInputsInfo([])
     if (typeof window !== "undefined") {
       setId(document.querySelector(".control-input").value);
       if ( document.querySelector(".control-input").value === "") {
@@ -154,13 +159,13 @@ export default function Modifier({ data }) {
                 flex: "2 0 21%"
               }}
             >
-              {Object.keys(data[0]).map((e, i) => {
+              {Object.keys(modifyData).map((e, i) => {
                 return (
                   <>
                     {i == 0 ? (
-                      <Input label={e.toString()} key={i} readOnly={true} />
+                      <Input label={e.toString()} key={i} readOnly={true} value={Object.values(modifyData)[i]} />
                     ) : (
-                      <Input label={e.toString()} key={i} />
+                      <Input label={e.toString()} key={i} value={Object.values(modifyData)[i]}/>
                     )}
                   </>
                 );
@@ -195,7 +200,9 @@ export default function Modifier({ data }) {
           style={{
             display: "flex",
             justifyContent: "center",
-            alignItems: "center"
+            alignItems: "center",
+            outline:"none",
+            broder:"none"
           }}
         >
           <div

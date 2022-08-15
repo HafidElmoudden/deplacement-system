@@ -166,5 +166,5 @@ export default async function consulterHandler(req, res) {
       throw new Error("Router pathname not in the switch case!");
       break;
   }
-  // res.json(addedData);
+  res.json({});
 }

@@ -9,11 +9,19 @@ export default async function handler(req, res) {
   console.log("data.route : ", data.route);
   console.log("object: ", Object.values(data)[0]);
   Object.values(data)[0].forEach((e, i) => {
-    if (i != 0) {
+    if(data.route === "/vehicule-personnel"){
       console.log("e : ", e);
+      console.log("data inputs = ", data.inputs);
+      item[e.toString()] = Number(data.inputs[i]) ? Number(data.inputs[i]): data.inputs[i];
+    }
+
+    if (i != 0 && data.route !== "/vehicule-personnel") {
+      console.log("e : ", e);
+      console.log("data inputs = ", data.inputs);
       item[e.toString()] = Number(data.inputs[i - 1]) ? Number(data.inputs[i - 1]): data.inputs[i - 1];
     }
   });
+  console.log("item : ", item);
   let count;
   switch (data.route) {
     case "/banques":
@@ -172,5 +180,5 @@ export default async function handler(req, res) {
       throw new Error("Router pathname not in the switch case!");
       break;
   }
-  // res.json(addedData);
+  res.json({});
 }

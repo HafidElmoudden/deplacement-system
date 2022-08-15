@@ -20,7 +20,11 @@ export default async function modiferHandler(req, res) {
           where: whereCond
         });
         if (count !== 0) {
-          res.status(200).json({ message: "L'élement trouvé" });
+          console.log("this is compiled")
+          let data = await prisma.banques.findFirst({
+            where: whereCond
+          });
+          res.status(200).json({ message: "L'élement trouvé", data: data });
         } else {
           res.status(310).json({ message: "L'élément introuvable!" });
         }

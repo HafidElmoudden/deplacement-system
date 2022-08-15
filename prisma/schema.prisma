@@ -11,16 +11,16 @@ datasource db {
 }
 
 model puissances_fiscales {
-  puiss_code         Int                 @id @default(autoincrement())
-  libelle            String              @db.VarChar(50)
+  puiss_code         Int                  @id @default(autoincrement())
+  libelle            String               @db.VarChar(50)
   taux               Float
-  // vehicule_personnel vehicule_personnel[]
+  vehicule_personnel vehicule_personnel[]
 }
 
 model grades {
-  cod_gra  Int       @id @default(autoincrement())
-  int_gra  String    @db.VarChar(50)
-  // employes employes[]
+  cod_gra  Int        @id @default(autoincrement())
+  int_gra  String     @db.VarChar(50)
+  employes employes[]
 }
 
 model frais_standards {
@@ -31,65 +31,65 @@ model frais_standards {
 }
 
 model moyens_de_transport {
-  mt_code          Int               @id @default(autoincrement())
-  libelle          String            @db.VarChar(50)
-  // ordre_de_mission ordre_de_mission[]
+  mt_code          Int                @id @default(autoincrement())
+  libelle          String             @db.VarChar(50)
+  ordre_de_mission ordre_de_mission[]
 }
 
 model destinations {
-  des_code              Int               @id @default(autoincrement())
-  nom_ville             String            @db.VarChar(50)
+  des_code              Int                @id @default(autoincrement())
+  nom_ville             String             @db.VarChar(50)
   distance_aller_retour Int
-  // ordre_de_mission      ordre_de_mission[]
+  ordre_de_mission      ordre_de_mission[]
 }
 
 model vehicule_personnel {
-  veh_matricule       Int                 @id @default(autoincrement())
+  veh_matricule       String              @id @db.VarChar(50)
   veh_marque          String              @db.VarChar(50)
-  puiss_code          Int                 
-  // puissances_fiscales puissances_fiscales @relation(fields: [puiss_code], references: [puiss_code])
+  puiss_code          Int
+  puissances_fiscales puissances_fiscales @relation(fields: [puiss_code], references: [puiss_code])
   // puissances_fiscales puissances_fiscales[]
-  // employes            employes[]
+  employes            employes?
 }
 
 model employes {
-  matricule          Int                @id @default(autoincrement())
+  matricule          Int                @id 
   nom                String             @db.VarChar(50)
   prenom             String             @db.VarChar(50)
-  cod_gra            Int                
-  // grades             grades             @relation(fields: [cod_gra], references: [cod_gra])
+  cod_gra            Int
+  grades             grades             @relation(fields: [cod_gra], references: [cod_gra])
   // grades             grades[]
-  banq_code          Int                
-  // banques            banques            @relation(fields: [banq_code], references: [banq_code])
+  banq_code          Int
+  banques            banques            @relation(fields: [banq_code], references: [banq_code])
   // banques            banques[]
   num_virement_banq  String             @db.VarChar(24)
-  veh_matricule      Int                
-  // vehicule_personnel vehicule_personnel @relation(fields: [veh_matricule], references: [veh_matricule])
+  veh_matricule      String             @unique
+  vehicule_personnel vehicule_personnel @relation(fields: [veh_matricule], references: [veh_matricule])
   // vehicule_personnel vehicule_personnel[]
-  // ordre_de_mission   ordre_de_mission[]
+  ordre_de_mission   ordre_de_mission?
 }
 
 model banques {
-  banq_code Int       @id @default(autoincrement())
-  banq_nom  String    @db.VarChar(50)
-  // employes  employes[]
+  banq_code Int        @id @default(autoincrement())
+  banq_nom  String     @db.VarChar(50)
+  employes  employes[]
 }
 
 model ordre_de_mission {
   num_ordre_miss      Int                 @id @default(autoincrement())
   annee               Int
-  matricule           Int                 
-  // employes            employes            @relation(fields: [matricule], references: [matricule])
+  matricule           Int                 @unique
+  employes            employes            @relation(fields: [matricule], references: [matricule])
   // employes            employes[]
-  des_code            Int                 
-  // destinations        destinations        @relation(fields: [des_code], references: [des_code])
+  des_code            Int
+  destinations        destinations        @relation(fields: [des_code], references: [des_code])
   // destinations        destinations[]
   date_depart         String              @db.VarChar(10)
   heure_depart        String              @db.VarChar(8)
   date_retour         String              @db.VarChar(10)
   heure_retour        String              @db.VarChar(8)
-  mt_code             Int                 
-  // moyens_de_transport moyens_de_transport @relation(fields: [mt_code], references: [mt_code])
+  mt_code             Int
+  moyens_de_transport moyens_de_transport @relation(fields: [mt_code], references: [mt_code])
   // moyens_de_transport moyens_de_transport[]
   motif               String              @db.VarChar(50)
   frais_divers        Int

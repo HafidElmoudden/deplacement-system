@@ -27,6 +27,7 @@ export default function Consulter({ data }) {
   };
 
   async function consulterItem(route, search, searchValue) {
+    setInputsInfo([])
     if (typeof window !== "undefined") {
       if (document.querySelector(".control-input").value === "") {
         setErrorModalMessage("Le champ de recherche est vide !");
@@ -181,7 +182,9 @@ export default function Consulter({ data }) {
           style={{
             display: "flex",
             justifyContent: "center",
-            alignItems: "center"
+            alignItems: "center",
+            outline:"none",
+            broder:"none"
           }}
         >
           <div

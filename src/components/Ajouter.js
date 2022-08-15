@@ -41,9 +41,9 @@ export default function Ajouter({ data }) {
     // return await response.json();
   }
   function getInputsValue() {
+    setInputsInfo([])
     if (typeof window !== "undefined") {
       for (let single_input of document.querySelectorAll(".control-input")) {
-        console.log("readOnly?", single_input.readOnly);
         if (!single_input.readOnly && single_input.value === "") {
           setErrorModalMessage("Un ou plusieurs champs sont vides!");
           setError(true);
@@ -51,8 +51,10 @@ export default function Ajouter({ data }) {
           return;
         }
       }
+
       document.querySelectorAll(".control-input").forEach((e, i) => {
-        if (e.value != "") setInputsInfo((oldArray) => [...oldArray, e.value]);
+        if (e.value != "")
+          setInputsInfo((oldArray) => [...oldArray, e.value]);
       });
     }
   }
@@ -92,7 +94,7 @@ export default function Ajouter({ data }) {
             return (
               <>
                 {i == 0 ? (
-                  <Input label={e.toString()} key={i} readOnly={true} />
+                  <Input label={e.toString()} key={i} readOnly={e.toString() === "veh_matricule" ? false : true} />
                 ) : (
                   <Input label={e.toString()} key={i} />
                 )}
@@ -132,7 +134,9 @@ export default function Ajouter({ data }) {
           style={{
             display: "flex",
             justifyContent: "center",
-            alignItems: "center"
+            alignItems: "center",
+            outline: "none",
+            broder: "none"
           }}
         >
           <div

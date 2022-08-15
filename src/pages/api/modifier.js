@@ -20,6 +20,7 @@ export default async function modiferHandler(req, res) {
     case "/banques":
       whereCond = {};
       whereCond[data.data[0].toString()] = Number(data.id);
+      console.log("modifier = ", data.data, data.data[0]);
       try {
         count = await prisma.banques.count({
           where: item
@@ -196,5 +197,5 @@ export default async function modiferHandler(req, res) {
       throw new Error("Router pathname not in the switch case!");
       break;
   }
-  // res.json(addedData);
+  res.json({});
 }
