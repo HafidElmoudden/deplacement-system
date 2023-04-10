@@ -20,7 +20,6 @@ export default async function modiferHandler(req, res) {
           where: whereCond
         });
         if (count !== 0) {
-          console.log("this is compiled")
           let data = await prisma.banques.findFirst({
             where: whereCond
           });
@@ -41,13 +40,16 @@ export default async function modiferHandler(req, res) {
           where: whereCond
         });
         if (count !== 0) {
-          res.status(200).json({ message: "L'élement trouvé" });
+          let data = await prisma.destinations.findFirst({
+            where: whereCond
+          });
+          res.status(200).json({ message: "L'élement trouvé", data: data });
         } else {
           res.status(310).json({ message: "L'élément introuvable!" });
         }
       } catch (e) {
         res.status(310).json({ message: "L'élément introuvable!" });
-      }  
+      }
     break;
     case "/employes":
       whereCond = {};
@@ -57,13 +59,16 @@ export default async function modiferHandler(req, res) {
           where: whereCond
         });
         if (count !== 0) {
-          res.status(200).json({ message: "L'élement trouvé" });
+          let data = await prisma.employes.findFirst({
+            where: whereCond
+          });
+          res.status(200).json({ message: "L'élement trouvé", data: data });
         } else {
           res.status(310).json({ message: "L'élément introuvable!" });
         }
       } catch (e) {
         res.status(310).json({ message: "L'élément introuvable!" });
-      }  
+      }
     break;
     case "/frais-standards":
       whereCond = {};
@@ -73,13 +78,16 @@ export default async function modiferHandler(req, res) {
           where: whereCond
         });
         if (count !== 0) {
-          res.status(200).json({ message: "L'élement trouvé" });
+          let data = await prisma.frais_standards.findFirst({
+            where: whereCond
+          });
+          res.status(200).json({ message: "L'élement trouvé", data: data });
         } else {
           res.status(310).json({ message: "L'élément introuvable!" });
         }
       } catch (e) {
         res.status(310).json({ message: "L'élément introuvable!" });
-      }  
+      }
     break;
     case "/grades":
       whereCond = {};
@@ -89,13 +97,16 @@ export default async function modiferHandler(req, res) {
           where: whereCond
         });
         if (count !== 0) {
-          res.status(200).json({ message: "L'élement trouvé" });
+          let data = await prisma.grades.findFirst({
+            where: whereCond
+          });
+          res.status(200).json({ message: "L'élement trouvé", data: data });
         } else {
           res.status(310).json({ message: "L'élément introuvable!" });
         }
       } catch (e) {
         res.status(310).json({ message: "L'élément introuvable!" });
-      }  
+      }
     break;
     case "/moyens-de-transport":
       whereCond = {};
@@ -105,13 +116,16 @@ export default async function modiferHandler(req, res) {
           where: whereCond
         });
         if (count !== 0) {
-          res.status(200).json({ message: "L'élement trouvé" });
+          let data = await prisma.moyens_de_transport.findFirst({
+            where: whereCond
+          });
+          res.status(200).json({ message: "L'élement trouvé", data: data });
         } else {
           res.status(310).json({ message: "L'élément introuvable!" });
         }
       } catch (e) {
         res.status(310).json({ message: "L'élément introuvable!" });
-      }  
+      }
     break;
     case "/ordre-de-mission":
       whereCond = {};
@@ -121,29 +135,37 @@ export default async function modiferHandler(req, res) {
           where: whereCond
         });
         if (count !== 0) {
-          res.status(200).json({ message: "L'élement trouvé" });
+          let data = await prisma.ordre_de_mission.findFirst({
+            where: whereCond
+          });
+          res.status(200).json({ message: "L'élement trouvé", data: data });
         } else {
           res.status(310).json({ message: "L'élément introuvable!" });
         }
       } catch (e) {
         res.status(310).json({ message: "L'élément introuvable!" });
-      }  
+      }
     break;
     case "/vehicule-personnel":
       whereCond = {};
-      whereCond[data.data[0].toString()] = Number(data.id);
+      whereCond[data.data[0].toString()] = Number(data.id) ? Number(data.id) : data.id;
       try {
         count = await prisma.vehicule_personnel.count({
           where: whereCond
         });
         if (count !== 0) {
-          res.status(200).json({ message: "L'élement trouvé" });
+          let data = await prisma.vehicule_personnel.findFirst({
+            where: whereCond
+          });
+          res.status(200).json({ message: "L'élement trouvé", data: data });
         } else {
+          
           res.status(310).json({ message: "L'élément introuvable!" });
         }
       } catch (e) {
+        console.log(e);
         res.status(310).json({ message: "L'élément introuvable!" });
-      }  
+      }
     break;
     case "/puissances-fiscales":
       whereCond = {};
@@ -153,13 +175,16 @@ export default async function modiferHandler(req, res) {
           where: whereCond
         });
         if (count !== 0) {
-          res.status(200).json({ message: "L'élement trouvé" });
+          let data = await prisma.puissances_fiscales.findFirst({
+            where: whereCond
+          });
+          res.status(200).json({ message: "L'élement trouvé", data: data });
         } else {
           res.status(310).json({ message: "L'élément introuvable!" });
         }
       } catch (e) {
         res.status(310).json({ message: "L'élément introuvable!" });
-      }  
+      }
     break;
     default:
       throw new Error("Router pathname not in the switch case!");

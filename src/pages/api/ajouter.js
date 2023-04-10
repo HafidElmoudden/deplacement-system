@@ -9,13 +9,13 @@ export default async function handler(req, res) {
   console.log("data.route : ", data.route);
   console.log("object: ", Object.values(data)[0]);
   Object.values(data)[0].forEach((e, i) => {
-    if(data.route === "/vehicule-personnel"){
+    if(data.route === "/vehicule-personnel" || data.route === "/employes"){
       console.log("e : ", e);
       console.log("data inputs = ", data.inputs);
       item[e.toString()] = Number(data.inputs[i]) ? Number(data.inputs[i]): data.inputs[i];
     }
 
-    if (i != 0 && data.route !== "/vehicule-personnel") {
+    if (i != 0 && data.route !== "/vehicule-personnel" && data.route !== "/employes") {
       console.log("e : ", e);
       console.log("data inputs = ", data.inputs);
       item[e.toString()] = Number(data.inputs[i - 1]) ? Number(data.inputs[i - 1]): data.inputs[i - 1];

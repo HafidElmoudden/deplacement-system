@@ -162,7 +162,7 @@ export default function Modifier({ data }) {
               {Object.keys(modifyData).map((e, i) => {
                 return (
                   <>
-                    {i == 0 ? (
+                    {(i == 0 && router.pathname !== "/vehicule-personnel" && router.pathname !== "/employes") ? (
                       <Input label={e.toString()} key={i} readOnly={true} value={Object.values(modifyData)[i]} />
                     ) : (
                       <Input label={e.toString()} key={i} value={Object.values(modifyData)[i]}/>

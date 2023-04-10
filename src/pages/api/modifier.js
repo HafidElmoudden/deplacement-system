@@ -156,7 +156,7 @@ export default async function modiferHandler(req, res) {
       break;
     case "/vehicule-personnel":
       whereCond = {};
-      whereCond[data.data[0].toString()] = Number(data.id);
+      whereCond[data.data[0].toString()] = Number(data.id) ? Number(data.id) : data.id ;
       try {
         count = await prisma.vehicule_personnel.count({
           where: item

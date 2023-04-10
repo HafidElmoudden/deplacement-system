@@ -4,16 +4,17 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export default function index({ data }) {
+export default function index({ data, calcData }) {
   return (
     <div style={{ width: "80%" }}>
-      <Control title={"Ordre de Mission"} data={data} />
+      <Control title={"Ordre de Mission"} data={data} calcData={calcData} />
     </div>
   );
 }
 
 export const getServerSideProps = async () => {
   let data = await prisma.ordre_de_mission.findMany();
+
   if(data.length === 0){
     data = [{
       num_ordre_miss:"",
@@ -31,6 +32,6 @@ export const getServerSideProps = async () => {
     }]
   }
   return {
-    props: { data },
+    props: { data},
   };
 };

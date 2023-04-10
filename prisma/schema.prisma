@@ -66,7 +66,7 @@ model employes {
   veh_matricule      String             @unique
   vehicule_personnel vehicule_personnel @relation(fields: [veh_matricule], references: [veh_matricule])
   // vehicule_personnel vehicule_personnel[]
-  ordre_de_mission   ordre_de_mission?
+  ordre_de_mission   ordre_de_mission[]
 }
 
 model banques {
@@ -78,7 +78,7 @@ model banques {
 model ordre_de_mission {
   num_ordre_miss      Int                 @id @default(autoincrement())
   annee               Int
-  matricule           Int                 @unique
+  matricule           Int                 
   employes            employes            @relation(fields: [matricule], references: [matricule])
   // employes            employes[]
   des_code            Int

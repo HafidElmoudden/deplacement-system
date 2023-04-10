@@ -13,7 +13,7 @@ import Ajouter from "./Ajouter";
 import Modifier from "./Modifier";
 import Consulter from "./Consulter";
 // import Tabs from "./Tabs"
-function Control({ title, data }) {
+function Control({ title, data}) {
   const options = {
     filterType: "checkbox",
     filter: false,
